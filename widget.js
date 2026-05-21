@@ -9,32 +9,27 @@
     return;
   }
 
-  // 1. Inject the CSS
+  // 1. Inject minimal CSS (Layout only, wrapper styling removed)
   const style = document.createElement('style');
   style.innerHTML = `
-    .collection-day-banner { background-color: #1c2b60; padding: 25px 40px; display: flex; align-items: center; gap: 15px; }
-    .collection-day-banner label { color: #ffffff; font-size: 1.1rem; font-weight: 500; white-space: nowrap; }
-    .collection-form-group { display: flex; height: 40px; width: 100%; max-width: 450px; }
-    .collection-form-group input { flex-grow: 1; border: none; padding: 0 15px; outline: none; font-size: 1rem; font-family: inherit; background-color: #ffffff; color: #333333; }
-    .collection-form-group button { background-color: #111a3a; color: #fff; border: none; padding: 0 15px 0 20px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; font-family: inherit; }
+    .collection-form-group { display: flex; width: 100%; max-width: 500px; gap: 10px; margin-top: 5px; }
+    .collection-form-group input { flex-grow: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; outline: none; font-size: 1rem; font-family: inherit; background-color: #ffffff; color: #333333; }
+    .collection-form-group button { background-color: #111a3a; color: #fff; border: none; border-radius: 4px; padding: 10px 20px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; font-family: inherit; }
     .collection-form-group button:hover { background-color: #080d1d; }
-    .widget-results { padding: 15px 40px; }
+    .widget-results { padding: 15px 0; }
     .widget-message { padding: 15px; border-radius: 4px; margin-top: 10px; font-size: 1.1rem; }
     .widget-success { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
     .widget-error { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
     .collection-day-highlight { font-weight: bold; font-size: 1.3rem; text-transform: uppercase; }
-    @media (max-width: 768px) { .collection-day-banner { flex-direction: column; align-items: flex-start; } .collection-form-group { max-width: 100%; } }
+    @media (max-width: 768px) { .collection-form-group { flex-direction: column; max-width: 100%; } }
   `;
   document.head.appendChild(style);
 
-  // 2. Inject the HTML
+  // 2. Inject the HTML (Stripped down to just the form group and results)
   targetElement.innerHTML = `
-    <div class="collection-day-banner">
-      <label for="widget-address-input">FIND YOUR RESIDENTIAL COLLECTION DAY.</label>
-      <div class="collection-form-group">
-        <input type="text" id="widget-address-input" placeholder="Enter address (e.g. 1149 S Broadway 90012)">
-        <button type="button" id="widget-submit-btn">Submit</button>
-      </div>
+    <div class="collection-form-group">
+      <input type="text" id="widget-address-input" placeholder="Enter address (e.g. 1149 S Broadway 90012)">
+      <button type="button" id="widget-submit-btn">Submit</button>
     </div>
     <div id="widget-result-container" class="widget-results"></div>
   `;

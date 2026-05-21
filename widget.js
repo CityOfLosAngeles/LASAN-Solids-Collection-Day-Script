@@ -1,4 +1,4 @@
-// widget.js - Hosted on GitHub Pages / jsDelivr
+// widget.js - Hosted on GitHub / jsDelivr
 (function() {
   const config = window._my_widget_config || {};
   const containerId = config.container || 'my-widget-container';
@@ -12,13 +12,13 @@
   // 1. Inject the CSS
   const style = document.createElement('style');
   style.innerHTML = `
-    .collection-day-banner { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #327d31; padding: 25px 40px; display: flex; align-items: center; gap: 15px; }
+    .collection-day-banner { background-color: #1c2b60; padding: 25px 40px; display: flex; align-items: center; gap: 15px; }
     .collection-day-banner label { color: #ffffff; font-size: 1.1rem; font-weight: 500; white-space: nowrap; }
     .collection-form-group { display: flex; height: 40px; width: 100%; max-width: 450px; }
-    .collection-form-group input { flex-grow: 1; border: none; padding: 0 15px; outline: none; font-size: 1rem; }
-    .collection-form-group button { background-color: #1a4d1a; color: #fff; border: none; padding: 0 15px 0 20px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; }
-    .collection-form-group button:hover { background-color: #113611; }
-    .widget-results { padding: 15px 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .collection-form-group input { flex-grow: 1; border: none; padding: 0 15px; outline: none; font-size: 1rem; font-family: inherit; }
+    .collection-form-group button { background-color: #111a3a; color: #fff; border: none; padding: 0 15px 0 20px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; font-family: inherit; }
+    .collection-form-group button:hover { background-color: #080d1d; }
+    .widget-results { padding: 15px 40px; }
     .widget-message { padding: 15px; border-radius: 4px; margin-top: 10px; font-size: 1.1rem; }
     .widget-success { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
     .widget-error { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
@@ -71,7 +71,6 @@
           const attributes = bestMatch.attributes;
           
           // Extract the specific LASAN_COLL_DAY field
-          // The || 'Not Found' acts as a safety net if the field is empty
           const collectionDay = attributes.LASAN_COLL_DAY || 'Not Found';
 
           // Build the success UI

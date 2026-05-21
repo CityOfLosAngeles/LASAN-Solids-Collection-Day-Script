@@ -1,0 +1,7 @@
+{
+  "name": "lasan-solids-collection-day-script",
+  "version": "1.0.0",
+  "description": "Minimal widget structure for CodeQL alignment",
+  "main": "widget.js",
+  "private": true
+}

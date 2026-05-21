@@ -15,7 +15,7 @@
     .collection-day-banner { background-color: #1c2b60; padding: 25px 40px; display: flex; align-items: center; gap: 15px; }
     .collection-day-banner label { color: #ffffff; font-size: 1.1rem; font-weight: 500; white-space: nowrap; }
     .collection-form-group { display: flex; height: 40px; width: 100%; max-width: 450px; }
-    .collection-form-group input { flex-grow: 1; border: none; padding: 0 15px; outline: none; font-size: 1rem; font-family: inherit; }
+    .collection-form-group input { flex-grow: 1; border: none; padding: 0 15px; outline: none; font-size: 1rem; font-family: inherit; background-color: #ffffff; color: #333333; }
     .collection-form-group button { background-color: #111a3a; color: #fff; border: none; padding: 0 15px 0 20px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; font-family: inherit; }
     .collection-form-group button:hover { background-color: #080d1d; }
     .widget-results { padding: 15px 40px; }

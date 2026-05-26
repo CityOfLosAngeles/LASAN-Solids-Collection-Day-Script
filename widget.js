@@ -9,23 +9,81 @@
     return;
   }
 
-  // 1. Inject minimal layout CSS (Stripped of custom backgrounds and extra fonts)
+  // 1. Inject responsive layout CSS
   const style = document.createElement('style');
   style.innerHTML = `
-    .collection-form-group { display: flex; width: 100%; max-width: 500px; gap: 10px; margin-top: 5px; }
-    .collection-form-group input { flex-grow: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; outline: none; font-size: 1rem; font-family: inherit; background-color: #ffffff; color: #333333; }
-    .collection-form-group button { background-color: #111a3a; color: #fff; border: none; border-radius: 4px; padding: 10px 20px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; font-family: inherit; }
-    .collection-form-group button:hover { background-color: #080d1d; }
-    .widget-results { padding: 15px 0; }
-    .widget-message { padding: 15px; border-radius: 4px; margin-top: 10px; font-size: 1.1rem; }
+    .collection-form-group { 
+      display: flex; 
+      width: 100%; 
+      max-width: 650px; 
+      gap: 10px; 
+      margin-top: 5px; 
+      box-sizing: border-box;
+    }
+    .collection-form-group input { 
+      flex-grow: 1; 
+      width: 100%;
+      padding: 14px 20px; 
+      border: 1px solid #ccc; 
+      border-radius: 4px; 
+      outline: none; 
+      font-size: 1.1rem; 
+      font-family: inherit; 
+      background-color: #ffffff; 
+      color: #333333;
+      box-sizing: border-box;
+    }
+    .collection-form-group button { 
+      background-color: #111a3a; 
+      color: #fff; 
+      border: none; 
+      border-radius: 4px; 
+      padding: 14px 25px; 
+      font-weight: 600; 
+      font-size: 1.1rem; 
+      cursor: pointer; 
+      transition: background-color 0.2s; 
+      font-family: inherit;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+    .collection-form-group button:hover { 
+      background-color: #080d1d; 
+    }
+    .widget-results { 
+      padding: 15px 0; 
+      width: 100%;
+    }
+    .widget-message { 
+      padding: 15px; 
+      border-radius: 4px; 
+      margin-top: 10px; 
+      font-size: 1.1rem; 
+      box-sizing: border-box;
+    }
     .widget-success { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
     .widget-error { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
     .collection-day-highlight { font-weight: bold; font-size: 1.3rem; text-transform: uppercase; }
-    @media (max-width: 768px) { .collection-form-group { flex-direction: column; max-width: 100%; } }
+    
+    /* Responsive Breakpoint for Mobile Devices */
+    @media (max-width: 576px) { 
+      .collection-form-group { 
+        flex-direction: column; 
+        max-width: 100%; 
+        gap: 12px;
+      }
+      .collection-form-group button {
+        width: 100%;
+        padding: 16px 25px; /* Slightly taller target area for mobile thumbs */
+      }
+    }
   `;
   document.head.appendChild(style);
 
-  // 2. Inject raw functional elements (No green wrapping header banner)
+  // 2. Inject raw functional elements
   targetElement.innerHTML = `
     <div class="collection-form-group">
       <input type="text" id="widget-address-input" placeholder="Enter address (e.g. 1149 S Broadway 90012)">

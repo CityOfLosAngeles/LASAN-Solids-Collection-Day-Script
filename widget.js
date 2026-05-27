@@ -12,13 +12,32 @@
   // 1. Inject responsive layout CSS
   const style = document.createElement('style');
   style.innerHTML = `
+    /* DEFINITIVE FIX: Force the widget root to center its axis perfectly inside the gray bar */
+    #${containerId} {
+      display: inline-flex !important;
+      flex-direction: column !important; /* Forces results to stack below the form */
+      vertical-align: middle !important;
+      justify-content: center !important;
+      margin-top: auto !important;    /* Magic trick: forces absolute vertical centering in flex rows */
+      margin-bottom: auto !important; /* Magic trick: forces absolute vertical centering in flex rows */
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+      line-height: normal !important; /* Eradicates inherited theme line-height drops */
+      width: 100%;
+      max-width: 650px;
+      box-sizing: border-box;
+    }
+
     .collection-form-group { 
       display: flex; 
       width: 100%; 
       max-width: 650px; 
       gap: 10px; 
-      margin-top: 5px; 
+      margin: 0 !important; /* Defeats any inherited CMS container margins */
+      padding: 0 !important;
       box-sizing: border-box;
+      align-items: center;
     }
     .collection-form-group input { 
       flex-grow: 1; 
@@ -31,6 +50,7 @@
       font-family: inherit; 
       background-color: #ffffff; 
       color: #333333;
+      margin: 0 !important;
       box-sizing: border-box;
     }
     .collection-form-group button { 
@@ -48,15 +68,16 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      margin: 0 !important;
       box-sizing: border-box;
     }
     .collection-form-group button:hover { 
       background-color: #080d1d; 
     }
     .widget-results { 
-      padding: 15px 0; 
+      padding: 15px 0 0 0; /* Clear padding parameters so it doesn't push empty space */
       width: 100%;
-      display: none; /* FIX: Hides the container and its padding on page load */
+      display: none; 
     }
     .widget-message { 
       padding: 15px; 
@@ -71,6 +92,9 @@
     
     /* Responsive Breakpoint for Mobile Devices */
     @media (max-width: 576px) { 
+      #${containerId} {
+        display: flex !important;
+      }
       .collection-form-group { 
         flex-direction: column; 
         max-width: 100%; 
@@ -101,7 +125,6 @@
   submitBtn.addEventListener('click', function() {
     const address = addressInput.value.trim();
     
-    // Ensure container is visible whenever an action happens
     resultContainer.style.display = 'block';
     
     if (!address) {

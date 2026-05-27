@@ -56,6 +56,7 @@
     .widget-results { 
       padding: 15px 0; 
       width: 100%;
+      display: none; /* FIX: Hides the container and its padding on page load */
     }
     .widget-message { 
       padding: 15px; 
@@ -77,7 +78,7 @@
       }
       .collection-form-group button {
         width: 100%;
-        padding: 16px 25px; /* Slightly taller target area for mobile thumbs */
+        padding: 16px 25px; 
       }
     }
   `;
@@ -99,6 +100,9 @@
 
   submitBtn.addEventListener('click', function() {
     const address = addressInput.value.trim();
+    
+    // Ensure container is visible whenever an action happens
+    resultContainer.style.display = 'block';
     
     if (!address) {
       resultContainer.innerHTML = `<div class="widget-message widget-error">Please enter an address.</div>`;

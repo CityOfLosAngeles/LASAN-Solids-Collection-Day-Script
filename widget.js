@@ -38,12 +38,12 @@
       font-size: 1.1rem; 
       font-family: inherit; 
       background-color: #ffffff; 
-      color: #333333;
+      color: #333333 !important; /* Force input text to stay dark */
       box-sizing: border-box;
     }
     .collection-form-group button { 
       background-color: #111a3a; 
-      color: #fff; 
+      color: #fff !important; /* Force button text to stay white */
       border: none; 
       border-radius: 4px; 
       padding: 14px 25px; 
@@ -74,27 +74,20 @@
       box-sizing: border-box;
     }
     
-    /* SUCCESS CONTAINER & TEXT DEFENSES */
-    .widget-success { 
-      background-color: #e8f5e9; 
-      color: #2e7d32 !important; 
-      border: 1px solid #c8e6c9; 
-    }
-    /* FIX: Force bold address and collection day to be dark green, crushing Drupal's inherited white */
-    .widget-success strong,
-    .widget-success .collection-day-highlight {
+    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the success box to be dark green */
+    #${containerId} .widget-success,
+    #${containerId} .widget-success * { 
+      background-color: #e8f5e9 !important; 
       color: #1b5e20 !important; 
+      border-color: #c8e6c9 !important;
     }
     
-    /* ERROR CONTAINER & TEXT DEFENSES */
-    .widget-error { 
-      background-color: #ffebee; 
-      color: #c62828 !important; 
-      border: 1px solid #ffcdd2; 
-    }
-    /* FIX: Protects errors from inheriting white text as well */
-    .widget-error strong {
-      color: #b71c1c !important;
+    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the error box to be dark red */
+    #${containerId} .widget-error,
+    #${containerId} .widget-error * { 
+      background-color: #ffebee !important; 
+      color: #b71c1c !important; 
+      border-color: #ffcdd2 !important;
     }
 
     .collection-day-highlight { 

@@ -12,13 +12,21 @@
   // 1. Inject responsive layout CSS
   const style = document.createElement('style');
   style.innerHTML = `
+    /* Centers the widget container if Drupal is using a flex row */
+    #${containerId} {
+      align-self: center !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
     .collection-form-group { 
       display: flex; 
       width: 100%; 
       max-width: 650px; 
       gap: 10px; 
-      margin-top: 5px; 
+      margin: 0; 
       box-sizing: border-box;
+      align-items: center; 
     }
     .collection-form-group input { 
       flex-grow: 1; 
@@ -56,7 +64,7 @@
     .widget-results { 
       padding: 15px 0; 
       width: 100%;
-      display: none; /* FIX: Hides the container and its padding on page load */
+      display: none; 
     }
     .widget-message { 
       padding: 15px; 
@@ -65,9 +73,35 @@
       font-size: 1.1rem; 
       box-sizing: border-box;
     }
-    .widget-success { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-    .widget-error { background-color: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
-    .collection-day-highlight { font-weight: bold; font-size: 1.3rem; text-transform: uppercase; }
+    
+    /* SUCCESS CONTAINER & TEXT DEFENSES */
+    .widget-success { 
+      background-color: #e8f5e9; 
+      color: #2e7d32 !important; 
+      border: 1px solid #c8e6c9; 
+    }
+    /* FIX: Force bold address and collection day to be dark green, crushing Drupal's inherited white */
+    .widget-success strong,
+    .widget-success .collection-day-highlight {
+      color: #1b5e20 !important; 
+    }
+    
+    /* ERROR CONTAINER & TEXT DEFENSES */
+    .widget-error { 
+      background-color: #ffebee; 
+      color: #c62828 !important; 
+      border: 1px solid #ffcdd2; 
+    }
+    /* FIX: Protects errors from inheriting white text as well */
+    .widget-error strong {
+      color: #b71c1c !important;
+    }
+
+    .collection-day-highlight { 
+      font-weight: bold; 
+      font-size: 1.3rem; 
+      text-transform: uppercase; 
+    }
     
     /* Responsive Breakpoint for Mobile Devices */
     @media (max-width: 576px) { 
@@ -101,7 +135,6 @@
   submitBtn.addEventListener('click', function() {
     const address = addressInput.value.trim();
     
-    // Ensure container is visible whenever an action happens
     resultContainer.style.display = 'block';
     
     if (!address) {
@@ -109,7 +142,7 @@
       return;
     }
 
-    resultContainer.innerHTML = `<div class="widget-message">Searching GIS database...</div>`;
+    resultContainer.innerHTML = `<div class="widget-message" style="color: #ffffff !important;">Searching GIS database...</div>`;
 
     const apiUrl = `https://gis.lacitysan.org/server/rest/services/CRM_Locator_V01/GeocodeServer/findAddressCandidates?outFields=*&f=json&Address=${encodeURIComponent(address)}`;
 

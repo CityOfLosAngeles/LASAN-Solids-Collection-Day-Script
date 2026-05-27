@@ -38,12 +38,12 @@
       font-size: 1.1rem; 
       font-family: inherit; 
       background-color: #ffffff; 
-      color: #333333 !important; /* Force input text to stay dark */
+      color: #333333 !important; 
       box-sizing: border-box;
     }
     .collection-form-group button { 
       background-color: #111a3a; 
-      color: #fff !important; /* Force button text to stay white */
+      color: #fff !important; 
       border: none; 
       border-radius: 4px; 
       padding: 14px 25px; 
@@ -73,29 +73,7 @@
       font-size: 1.1rem; 
       box-sizing: border-box;
     }
-    
-    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the success box to be dark green */
-    #${containerId} .widget-success,
-    #${containerId} .widget-success * { 
-      background-color: #e8f5e9 !important; 
-      color: #1b5e20 !important; 
-      border-color: #c8e6c9 !important;
-    }
-    
-    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the error box to be dark red */
-    #${containerId} .widget-error,
-    #${containerId} .widget-error * { 
-      background-color: #ffebee !important; 
-      color: #b71c1c !important; 
-      border-color: #ffcdd2 !important;
-    }
 
-    .collection-day-highlight { 
-      font-weight: bold; 
-      font-size: 1.3rem; 
-      text-transform: uppercase; 
-    }
-    
     /* Responsive Breakpoint for Mobile Devices */
     @media (max-width: 576px) { 
       .collection-form-group { 
@@ -131,7 +109,10 @@
     resultContainer.style.display = 'block';
     
     if (!address) {
-      resultContainer.innerHTML = `<div class="widget-message widget-error">Please enter an address.</div>`;
+      resultContainer.innerHTML = `
+        <div class="widget-message" style="background-color: #ffebee !important; color: #b71c1c !important; border: 1px solid #ffcdd2 !important;">
+          Please enter an address.
+        </div>`;
       return;
     }
 
@@ -150,19 +131,27 @@
           const attributes = bestMatch.attributes;
           const collectionDay = attributes.LASAN_COLL_DAY || 'Not Found';
 
+          /* FIX: Explicit dark green inline styles applied directly to tags to ensure ADA compliance */
           resultContainer.innerHTML = `
-            <div class="widget-message widget-success">
-              Your collection day for <strong>${bestMatch.address}</strong> is:<br>
-              <span class="collection-day-highlight">${collectionDay}</span>
+            <div class="widget-message" style="background-color: #e8f5e9 !important; color: #1b5e20 !important; border: 1px solid #c8e6c9 !important;">
+              Your collection day for <strong style="color: #1b5e20 !important; font-weight: bold;">${bestMatch.address}</strong> is:<br>
+              <span class="collection-day-highlight" style="color: #1b5e20 !important; font-weight: bold; font-size: 1.3rem; text-transform: uppercase; display: inline-block; margin-top: 5px;">${collectionDay}</span>
             </div>
           `;
         } else {
-          resultContainer.innerHTML = `<div class="widget-message widget-error">Address not found. Please try formatting it differently.</div>`;
+          /* FIX: Explicit dark red inline styles applied directly to tags for errors */
+          resultContainer.innerHTML = `
+            <div class="widget-message" style="background-color: #ffebee !important; color: #b71c1c !important; border: 1px solid #ffcdd2 !important;">
+              Address not found. Please try formatting it differently.
+            </div>`;
         }
       })
       .catch(error => {
         console.error('Widget API Error:', error);
-        resultContainer.innerHTML = `<div class="widget-message widget-error">Error connecting to the GIS server. Please try again later.</div>`;
+        resultContainer.innerHTML = `
+          <div class="widget-message" style="background-color: #ffebee !important; color: #b71c1c !important; border: 1px solid #ffcdd2 !important;">
+            Error connecting to the GIS server. Please try again later.
+          </div>`;
       });
   });
 

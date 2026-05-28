@@ -12,11 +12,12 @@
   // 1. Inject responsive layout CSS
   const style = document.createElement('style');
   style.innerHTML = `
-    /* Centers the widget container if Drupal is using a flex row */
+    /* Locks the root container positioning context */
     #${containerId} {
       align-self: center !important;
       margin: 0 !important;
       padding: 0 !important;
+      position: relative !important; /* Context layer for absolute positioning */
     }
 
     .collection-form-group { 
@@ -61,21 +62,33 @@
     .collection-form-group button:hover { 
       background-color: #080d1d; 
     }
+    
+    /* BULLETPROOF POSITIONING: Floats results below the input line like a dropdown */
     .widget-results { 
-      padding: 15px 0; 
+      position: absolute !important;
+      top: calc(100% + 8px); /* Sits beautifully right below the input row */
+      left: 0;
       width: 100%;
+      z-index: 9999; /* Guarantees it floats over any background container layers */
       display: none; 
+      box-sizing: border-box;
     }
     .widget-message { 
       padding: 15px; 
       border-radius: 4px; 
-      margin-top: 10px; 
+      margin: 0 !important; /* Zeroed out to let absolute coordinates handle spacing */
       font-size: 1.1rem; 
       box-sizing: border-box;
+      white-space: nowrap; /* Encourages single-line execution across viewports */
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* Responsive Breakpoint for Mobile Devices */
     @media (max-width: 576px) { 
+      #${containerId} {
+        position: relative !important;
+      }
       .collection-form-group { 
         flex-direction: column; 
         max-width: 100%; 
@@ -84,6 +97,13 @@
       .collection-form-group button {
         width: 100%;
         padding: 16px 25px; 
+      }
+      .widget-results {
+        position: relative !important; /* Returns to standard block layout on mobile screens */
+        top: 0 !important;
+      }
+      .widget-message {
+        white-space: normal; /* Allows wrapping on small mobile screens to prevent clipping */
       }
     }
   `;
@@ -131,15 +151,13 @@
           const attributes = bestMatch.attributes;
           const collectionDay = attributes.LASAN_COLL_DAY || 'Not Found';
 
-          /* FIX: Explicit dark green inline styles applied directly to tags to ensure ADA compliance */
+          /* FIX: Removed <br> tag and inline structural blocks to merge output text onto one line */
           resultContainer.innerHTML = `
             <div class="widget-message" style="background-color: #e8f5e9 !important; color: #1b5e20 !important; border: 1px solid #c8e6c9 !important;">
-              Your collection day for <strong style="color: #1b5e20 !important; font-weight: bold;">${bestMatch.address}</strong> is:<br>
-              <span class="collection-day-highlight" style="color: #1b5e20 !important; font-weight: bold; font-size: 1.3rem; text-transform: uppercase; display: inline-block; margin-top: 5px;">${collectionDay}</span>
+              Your collection day for <strong style="color: #1b5e20 !important; font-weight: bold;">${bestMatch.address}</strong> is <span class="collection-day-highlight" style="color: #1b5e20 !important; font-weight: bold; font-size: 1.2rem; text-transform: uppercase;">${collectionDay}</span>
             </div>
           `;
         } else {
-          /* FIX: Explicit dark red inline styles applied directly to tags for errors */
           resultContainer.innerHTML = `
             <div class="widget-message" style="background-color: #ffebee !important; color: #b71c1c !important; border: 1px solid #ffcdd2 !important;">
               Address not found. Please try formatting it differently.

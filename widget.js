@@ -12,7 +12,6 @@
   // 1. Inject responsive layout CSS
   const style = document.createElement('style');
   style.innerHTML = `
-    /* FIXED: Expanded max-width to make input field larger and prevent button overflow */
     #${containerId} {
       align-self: center !important;
       margin: 0 !important;
@@ -20,7 +19,7 @@
       display: flex !important;
       flex-direction: column !important;
       width: 100% !important;
-      max-width: 780px; /* BUMPED from 650px to enlarge input and balance right side */
+      max-width: 780px; 
       box-sizing: border-box;
     }
 
@@ -45,9 +44,9 @@
       color: #333333 !important; 
       box-sizing: border-box;
     }
+    
+    /* THE INHERITANCE FIX: Hardcoded colors removed so Drupal takes control */
     .collection-form-group button { 
-      background-color: #111a3a; 
-      color: #fff !important; 
       border: none; 
       border-radius: 4px; 
       padding: 14px 25px; 
@@ -62,14 +61,11 @@
       justify-content: center;
       box-sizing: border-box;
     }
-    .collection-form-group button:hover { 
-      background-color: #080d1d; 
-    }
     
     .widget-results { 
       position: relative !important;
       margin-top: 12px !important; 
-      width: 100% !important; /* Forces the green box to span the full width of form + button */
+      width: 100% !important; 
       display: none; 
       box-sizing: border-box;
     }

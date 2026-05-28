@@ -45,8 +45,10 @@
       box-sizing: border-box;
     }
     
-    /* THE INHERITANCE FIX: Hardcoded colors removed so Drupal takes control */
+    /* RESTORED: Your custom established button colors and hover states */
     .collection-form-group button { 
+      background-color: #111a3a; 
+      color: #fff !important; 
       border: none; 
       border-radius: 4px; 
       padding: 14px 25px; 
@@ -60,6 +62,9 @@
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
+    }
+    .collection-form-group button:hover { 
+      background-color: #080d1d; 
     }
     
     .widget-results { 

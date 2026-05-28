@@ -12,12 +12,16 @@
   // 1. Inject responsive layout CSS
   const style = document.createElement('style');
   style.innerHTML = `
-    /* Locks the root container positioning context */
+    /* Forces the root widget wrapper to stack the form row and results row vertically */
     #${containerId} {
       align-self: center !important;
       margin: 0 !important;
       padding: 0 !important;
-      position: relative !important; /* Context layer for absolute positioning */
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100%;
+      max-width: 650px;
+      box-sizing: border-box;
     }
 
     .collection-form-group { 
@@ -63,32 +67,47 @@
       background-color: #080d1d; 
     }
     
-    /* BULLETPROOF POSITIONING: Floats results below the input line like a dropdown */
+    /* CONSULTANT FIX: Use relative positioning so it naturally expands the dark blue banner instead of getting cut off */
     .widget-results { 
-      position: absolute !important;
-      top: calc(100% + 8px); /* Sits beautifully right below the input row */
-      left: 0;
+      position: relative !important;
+      margin-top: 12px !important; /* Creates a clean, reliable visual gap below the input fields */
       width: 100%;
-      z-index: 9999; /* Guarantees it floats over any background container layers */
       display: none; 
       box-sizing: border-box;
     }
     .widget-message { 
       padding: 15px; 
       border-radius: 4px; 
-      margin: 0 !important; /* Zeroed out to let absolute coordinates handle spacing */
+      margin: 0 !important; 
       font-size: 1.1rem; 
       box-sizing: border-box;
-      white-space: nowrap; /* Encourages single-line execution across viewports */
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: nowrap; /* Keeps message text on a single line */
+    }
+
+    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the success box to be dark green */
+    #${containerId} .widget-success,
+    #${containerId} .widget-success * { 
+      background-color: #e8f5e9 !important; 
+      color: #1b5e20 !important; 
+      border-color: #c8e6c9 !important;
+    }
+    
+    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the error box to be dark red */
+    #${containerId} .widget-error,
+    #${containerId} .widget-error * { 
+      background-color: #ffebee !important; 
+      color: #b71c1c !important; 
+      border-color: #ffcdd2 !important;
+    }
+
+    .collection-day-highlight { 
+      font-weight: bold; 
+      font-size: 1.2rem; 
+      text-transform: uppercase; 
     }
 
     /* Responsive Breakpoint for Mobile Devices */
     @media (max-width: 576px) { 
-      #${containerId} {
-        position: relative !important;
-      }
       .collection-form-group { 
         flex-direction: column; 
         max-width: 100%; 
@@ -98,12 +117,8 @@
         width: 100%;
         padding: 16px 25px; 
       }
-      .widget-results {
-        position: relative !important; /* Returns to standard block layout on mobile screens */
-        top: 0 !important;
-      }
       .widget-message {
-        white-space: normal; /* Allows wrapping on small mobile screens to prevent clipping */
+        white-space: normal; /* Allows text wrapping on mobile screens so it doesn't clip horizontally */
       }
     }
   `;
@@ -151,10 +166,9 @@
           const attributes = bestMatch.attributes;
           const collectionDay = attributes.LASAN_COLL_DAY || 'Not Found';
 
-          /* FIX: Removed <br> tag and inline structural blocks to merge output text onto one line */
           resultContainer.innerHTML = `
             <div class="widget-message" style="background-color: #e8f5e9 !important; color: #1b5e20 !important; border: 1px solid #c8e6c9 !important;">
-              Your collection day for <strong style="color: #1b5e20 !important; font-weight: bold;">${bestMatch.address}</strong> is <span class="collection-day-highlight" style="color: #1b5e20 !important; font-weight: bold; font-size: 1.2rem; text-transform: uppercase;">${collectionDay}</span>
+              Your collection day for <strong style="color: #1b5e20 !important; font-weight: bold;">${bestMatch.address}</strong> is <span class="collection-day-highlight" style="color: #1b5e20 !important; font-weight: bold; text-transform: uppercase;">${collectionDay}</span>
             </div>
           `;
         } else {

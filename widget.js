@@ -12,23 +12,22 @@
   // 1. Inject responsive layout CSS
   const style = document.createElement('style');
   style.innerHTML = `
-    /* Forces the root widget wrapper to stack the form row and results row vertically */
+    /* FIXED: Expanded max-width to make input field larger and prevent button overflow */
     #${containerId} {
       align-self: center !important;
       margin: 0 !important;
       padding: 0 !important;
       display: flex !important;
       flex-direction: column !important;
-      width: 100%;
-      max-width: 650px;
+      width: 100% !important;
+      max-width: 780px; /* BUMPED from 650px to enlarge input and balance right side */
       box-sizing: border-box;
     }
 
     .collection-form-group { 
       display: flex; 
       width: 100%; 
-      max-width: 650px; 
-      gap: 10px; 
+      gap: 12px; 
       margin: 0; 
       box-sizing: border-box;
       align-items: center; 
@@ -67,11 +66,10 @@
       background-color: #080d1d; 
     }
     
-    /* CONSULTANT FIX: Use relative positioning so it naturally expands the dark blue banner instead of getting cut off */
     .widget-results { 
       position: relative !important;
-      margin-top: 12px !important; /* Creates a clean, reliable visual gap below the input fields */
-      width: 100%;
+      margin-top: 12px !important; 
+      width: 100% !important; /* Forces the green box to span the full width of form + button */
       display: none; 
       box-sizing: border-box;
     }
@@ -81,7 +79,7 @@
       margin: 0 !important; 
       font-size: 1.1rem; 
       box-sizing: border-box;
-      white-space: nowrap; /* Keeps message text on a single line */
+      white-space: nowrap; 
     }
 
     /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the success box to be dark green */
@@ -118,7 +116,7 @@
         padding: 16px 25px; 
       }
       .widget-message {
-        white-space: normal; /* Allows text wrapping on mobile screens so it doesn't clip horizontally */
+        white-space: normal; 
       }
     }
   `;

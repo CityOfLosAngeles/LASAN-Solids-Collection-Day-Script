@@ -45,26 +45,34 @@
       box-sizing: border-box;
     }
     
-    /* RESTORED: Your custom established button colors and hover states */
+    /* Custom styled button with brand color #1C2B60 */
     .collection-form-group button { 
-      background-color: #111a3a; 
-      color: #fff !important; 
-      border: none; 
-      border-radius: 4px; 
-      padding: 14px 25px; 
-      font-weight: 600; 
-      font-size: 1.1rem; 
-      cursor: pointer; 
-      transition: background-color 0.2s; 
-      font-family: inherit;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
+      background-color: #1C2B60 !important; 
+      color: #ffffff !important; 
+      border: 1px solid rgba(255, 255, 255, 0.85) !important; 
+      border-radius: 6px !important; 
+      padding: 12px 28px !important; 
+      font-size: 1.15rem !important; 
+      font-weight: 500 !important; 
+      font-family: inherit !important; 
+      cursor: pointer !important; 
+      transition: all 0.2s ease-in-out !important; 
+      white-space: nowrap !important; 
+      display: inline-flex !important; 
+      align-items: center !important; 
+      justify-content: center !important; 
+      box-sizing: border-box !important; 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
     }
     .collection-form-group button:hover { 
-      background-color: #080d1d; 
+      background-color: #142048 !important; 
+      border-color: #ffffff !important;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4) !important;
+    }
+    .collection-form-group button:active {
+      background-color: #0e1633 !important;
+      transform: translateY(1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
     }
     
     .widget-results { 
@@ -83,7 +91,7 @@
       white-space: nowrap; 
     }
 
-    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the success box to be dark green */
+    /* Forced specificity rules for status boxes */
     #${containerId} .widget-success,
     #${containerId} .widget-success * { 
       background-color: #e8f5e9 !important; 
@@ -91,7 +99,6 @@
       border-color: #c8e6c9 !important;
     }
     
-    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the error box to be dark red */
     #${containerId} .widget-error,
     #${containerId} .widget-error * { 
       background-color: #ffebee !important; 
@@ -114,7 +121,7 @@
       }
       .collection-form-group button {
         width: 100%;
-        padding: 16px 25px; 
+        padding: 16px 25px !important; 
       }
       .widget-message {
         white-space: normal; 

@@ -45,11 +45,11 @@
       box-sizing: border-box;
     }
     
-    /* Custom styled button with brand color #1C2B60 */
+    /* Styled button matching design with #1C2B60 background & solid white outline */
     .collection-form-group button { 
       background-color: #1C2B60 !important; 
       color: #ffffff !important; 
-      border: 1px solid rgba(255, 255, 255, 0.85) !important; 
+      border: 1px solid #ffffff !important; 
       border-radius: 6px !important; 
       padding: 12px 28px !important; 
       font-size: 1.15rem !important; 
@@ -91,7 +91,7 @@
       white-space: nowrap; 
     }
 
-    /* Forced specificity rules for status boxes */
+    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the success box to be dark green */
     #${containerId} .widget-success,
     #${containerId} .widget-success * { 
       background-color: #e8f5e9 !important; 
@@ -99,6 +99,7 @@
       border-color: #c8e6c9 !important;
     }
     
+    /* THE SPECIFICITY NUKE: Forces EVERYTHING inside the error box to be dark red */
     #${containerId} .widget-error,
     #${containerId} .widget-error * { 
       background-color: #ffebee !important; 
